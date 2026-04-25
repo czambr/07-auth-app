@@ -19,9 +19,6 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install
 
 COPY . .
 
-# Genera el cliente de Prisma
-# RUN npx prisma generate
-
 # ===========================================
 # RUNTIME: imagen final liviana
 # ===========================================
@@ -33,4 +30,4 @@ COPY --from=build /usr/src/app .
 
 EXPOSE 3000
 
-# CMD ["sh", "-c", "npx prisma generate && pnpm run start:dev"]
+CMD ["sh", "-c", "pnpm dlx prisma generate && pnpm run dev"]

@@ -57,3 +57,5 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # DB local
 postgres/
+
+/generated/prisma

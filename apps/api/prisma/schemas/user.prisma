@@ -1,0 +1,31 @@
+model User {
+    id String @id @default(uuid())
+
+    name        String?
+    lastName    String?
+    avatar      String?
+    email       String  @unique
+    backupEmail String?
+    phone       String?
+    password    String?
+    country     String? @default("MX")
+    language    String? @default("es-ES")
+
+    emailConfirm       Boolean @default(false)
+    backupEmailConfirm Boolean @default(false)
+    phoneConfirm       Boolean @default(false)
+
+    twoFactorEnabled Boolean @default(false)
+    twoFactorSecret  String?
+
+    sessions Session[]
+
+    status       UserStatusEnum   @default(ACTIVE)
+    authProvider AuthProviderEnum @default(LOCAL)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([email])
+    @@index([createdAt])
+}

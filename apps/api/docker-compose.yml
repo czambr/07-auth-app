@@ -8,12 +8,11 @@ services:
       - ./src:/usr/src/app/src
     ports:
       - '3000:3000'
-    # command: sh -c "npx prisma generate && npm run dev"
-    command: sh -c "pnpm run dev"
+    command: sh -c "pnpm dlx prisma generate && pnpm run dev"
     environment:
       - PORT=${PORT}
       - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
-      # - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_URL=${DATABASE_URL}
       # - REDIS_URL=${REDIS_URL}
  
 
