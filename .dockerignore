@@ -1,0 +1,16 @@
+
+**/node_modules
+**/.pnpm
+**/dist
+**/.turbo
+
+.vscode/
+.turbo/
+.next/
+
+.env
+.env.*
+.git
+.gitignore
+*.md.
+
