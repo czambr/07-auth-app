@@ -13,7 +13,7 @@ services:
       - PORT=${PORT}
       - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
       - DATABASE_URL=${DATABASE_URL}
-      # - REDIS_URL=${REDIS_URL}
+      - REDIS_URL=${REDIS_URL}
  
 
   auth-db:
