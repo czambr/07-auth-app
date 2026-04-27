@@ -1,0 +1,34 @@
+FROM node:22.12.0-alpine3.21 AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+ENV COREPACK_INTEGRITY_KEYS=0
+RUN corepack enable
+
+WORKDIR /app
+
+# ─── Etapa: instalar dependencias ────────────────────────────────────────────
+# Copiamos primero SOLO los manifests para aprovechar el cache de Docker.
+# Esta capa solo se invalida cuando cambia el lockfile o algún package.json.
+COPY pnpm-lock.yaml ./
+COPY pnpm-workspace.yaml ./
+COPY package.json ./
+
+# Copia los package.json de cada workspace que existe en el monorepo.
+# Agrega una línea por cada app/package que tengas.
+COPY apps/api/package.json ./apps/api/package.json
+# COPY packages/ui/package.json ./packages/ui/package.json
+# COPY packages/shared/package.json ./packages/shared/package.json
+
+# Instala TODAS las dependencias (incluyendo devDeps para watch mode)
+# --frozen-lockfile garantiza reproducibilidad y aprovecha cache de Docker
+RUN pnpm install --frozen-lockfile
+
+# ─── Etapa de desarrollo ─────────────────────────────────────────────────────
+# El código fuente NO se copia aquí — viene montado como volume en docker-compose.
+# Solo necesitamos que node_modules esté instalado dentro de la imagen.
+
+WORKDIR /app/apps/api
+
+EXPOSE 3000
+# start:dev lanza nest start --watch
+CMD ["pnpm", "run", "dev"]
