@@ -29,6 +29,6 @@ RUN pnpm install --frozen-lockfile
 
 WORKDIR /app/apps/api
 
-EXPOSE 3000
+# EXPOSE 3000
 # start:dev lanza nest start --watch
 CMD ["pnpm", "run", "dev"]

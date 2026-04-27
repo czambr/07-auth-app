@@ -1,0 +1,45 @@
+import { UserStatusEnum, AuthProviderEnum } from '@prisma/client'
+
+export interface ICreateUser {
+  name?: string
+  lastName?: string
+  avatar?: string
+  email: string
+  backupEmail?: string
+  phone?: string
+  password: string
+  country?: string
+  language?: string
+
+  emailConfirm?: boolean
+  backupEmailConfirm?: boolean
+  phoneConfirm?: boolean
+
+  twoFactorEnabled?: boolean
+  twoFactorSecret?: string
+
+  status?: UserStatusEnum
+  authProvider?: AuthProviderEnum
+}
+
+export interface IUpdateUser {
+  name?: string
+  lastName?: string
+  avatar?: string
+  email?: string
+  backupEmail?: string
+  phone?: string
+  password?: string
+  country?: string
+  language?: string
+
+  emailConfirm?: boolean
+  backupEmailConfirm?: boolean
+  phoneConfirm?: boolean
+
+  twoFactorEnabled?: boolean
+  twoFactorSecret?: string
+
+  status?: UserStatusEnum
+  authProvider?: AuthProviderEnum
+}
