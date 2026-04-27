@@ -1,0 +1,41 @@
+
+include:
+  - path: ./apps/api/docker-compose.dev.yml
+    project_directory: ./apps/api
+  
+services:
+  # ── App NestJS ──────────────────────────────────────────────────────────────
+  api:
+    build:
+      context: .                              # <-- Root del monorepo como contexto
+      dockerfile: ./apps/api/Dockerfile.dev   # <-- Dockerfile de la app
+    ports:
+      - "3000:3000"
+
+    command: sh -c "pnpm dlx prisma generate && pnpm run dev"
+
+    # env_file inyecta las variables del .env de la app al container.
+    # NestJS las verá en process.env ANTES de que arranque.
+    # Esto resuelve el problema 1 sin importar desde donde ejecutes docker compose.
+    env_file:
+      - ./apps/api/.env
+
+    volumes:
+      # Monta el monorepo completo → habilita hot reload sin rebuild
+      - .:/app
+
+      # Volumes anónimos: evitan que el mount anterior sobreescriba
+      # los node_modules instalados durante el build de la imagen.
+      # Docker usa los node_modules del container, no del host.
+      - /app/node_modules
+      - /app/apps/api/node_modules
+      # Agrega una línea por cada package interno que tengas:
+      # - /app/packages/shared/node_modules
+
+    # depends_on:
+    #   auth-db:
+    #     condition: service_healthy
+    #   auth-redis:
+    #     condition: service_healthy
+
+  
