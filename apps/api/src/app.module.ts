@@ -7,6 +7,7 @@ import { PrismaModule } from '@modules/prisma/prisma.module'
 import { UsersModule } from '@modules/users/users.module'
 import { TestModule } from './modules/test/test.module'
 import { BcryptModule } from './modules/bcrypt/bcrypt.module';
+import { SessionsModule } from './modules/sessions/sessions.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { BcryptModule } from './modules/bcrypt/bcrypt.module';
     UsersModule,
     TestModule,
     BcryptModule,
+    SessionsModule,
   ],
   controllers: [],
   providers: [],

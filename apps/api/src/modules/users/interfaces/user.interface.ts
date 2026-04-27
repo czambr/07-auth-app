@@ -23,6 +23,7 @@ export interface ICreateUser {
 }
 
 export interface IUpdateUser {
+  id: string
   name?: string
   lastName?: string
   avatar?: string
@@ -42,4 +43,9 @@ export interface IUpdateUser {
 
   status?: UserStatusEnum
   authProvider?: AuthProviderEnum
+}
+
+export interface IGetUser {
+  id?: string
+  email?: string
 }
