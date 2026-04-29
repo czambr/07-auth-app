@@ -2,6 +2,12 @@
 dist/
 node_modules/
 postgres/
+prisma/migrations
+prisma/generate
+
+Dockerfile
+Dockerfile.*
+.dockerignore
 
 .vscode/
 .turbo/
